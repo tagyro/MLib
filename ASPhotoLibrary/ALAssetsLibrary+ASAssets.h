@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 MEGA. All rights reserved.
 //
 
-#import <AssetsLibrary/AssetsLibrary.h>
+#import <ALAssetsLibrary/AssetsLibrary.h>
 
 @interface ASAssetsPhoto : NSObject
 @end

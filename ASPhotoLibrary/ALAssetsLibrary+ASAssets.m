@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 MEGA. All rights reserved.
 //
 
-#import "ASAssetsLibrary+ASAssets.h"
+#import "ALAssetsLibrary+ASAssets.h"
 
 @implementation ASAssetsPhoto
 @end
