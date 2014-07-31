@@ -68,9 +68,9 @@
     
     if(newImage == nil)
     {
-        NSLog(@"could not scale image");
+//        NSLog(@"could not scale image");
     } else {
-        NSLog(@"image scaled correctly");
+//        NSLog(@"image scaled correctly");
     }
     
     //pop the context to get back to the default

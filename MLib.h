@@ -11,7 +11,7 @@
 
 #import "ASActor.h"
 
-#import "ASThreadSafeStorage.h"
+#import "MThreadSafeStorage.h"
 
 #import "ALAssetsLibrary+ASAssets.h"
 

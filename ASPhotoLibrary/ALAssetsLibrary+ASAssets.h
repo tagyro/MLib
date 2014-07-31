@@ -8,14 +8,12 @@
 
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface ASAssetsPhoto : NSObject
-@end
-
-@interface ASAssetsAlbum : NSObject
-@end
+#import <AVFoundation/AVFoundation.h>
 
 @interface ALAssetsLibrary (ASAssets)
 
 - (void)asassets_enumerateGroupsWithTypes:(ALAssetsGroupType)types usingBlock:(ALAssetsLibraryGroupsEnumerationResultsBlock)enumerationBlock failureBlock:(ALAssetsLibraryAccessFailureBlock)failureBlock;
+
+-(void)export:(ALAsset*)asset withHandler:(void (^)(NSURL* url, NSError* error))handler;
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ASThreadSafeStorage : NSObject
+@interface MThreadSafeStorage : NSObject
 
 - (instancetype)initWithFile:(NSString *)path;
 

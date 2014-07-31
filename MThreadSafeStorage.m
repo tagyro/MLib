@@ -6,22 +6,23 @@
 //  Copyright (c) 2014 MEGA. All rights reserved.
 //
 
-#import "ASThreadSafeStorage.h"
+#import "MThreadSafeStorage.h"
 
-@interface ASThreadSafeStorage()
+@interface MThreadSafeStorage()
 
 @property (nonatomic, strong) NSMutableDictionary *data;
 @property (nonatomic, strong) dispatch_queue_t lockQueue;
+@property (nonatomic, strong) NSString *filepath;
 
 @end
 
-@implementation ASThreadSafeStorage
+@implementation MThreadSafeStorage
 
 - (instancetype)init
 {
     if (self = [super init]) {
         _lockQueue = dispatch_queue_create("co.nz.mega", DISPATCH_QUEUE_SERIAL);
-        _data = [NSMutableDictionary dictionary];
+        _data = [NSMutableDictionary new];
     }
     return self;
 }
@@ -29,7 +30,11 @@
 - (instancetype)initWithFile:(NSString *)path {
     if (self = [super init]) {
         _lockQueue = dispatch_queue_create("co.nz.mega", DISPATCH_QUEUE_SERIAL);
-        _data = [NSMutableDictionary dictionaryWithContentsOfURL:[NSURL fileURLWithPath:path]];
+        _filepath = path;
+        _data = [NSMutableDictionary dictionaryWithContentsOfURL:[NSURL fileURLWithPath:_filepath]];
+        if (!_data) {
+            _data = [NSMutableDictionary new];
+        }
     }
     return self;
 }
@@ -47,6 +52,7 @@
 {
     dispatch_async(self.lockQueue, ^{
         [self.data setObject:object forKey:key];
+        [self.data writeToFile:_filepath atomically:YES];
     });
 }
 

@@ -8,12 +8,6 @@
 
 #import "ALAssetsLibrary+ASAssets.h"
 
-@implementation ASAssetsPhoto
-@end
-
-@implementation ASAssetsAlbum
-@end
-
 @implementation ALAssetsLibrary (ASAssets)
 
 - (void)asassets_enumerateGroupsWithTypes:(ALAssetsGroupType)types usingBlock:(ALAssetsLibraryGroupsEnumerationResultsBlock)enumerationBlock failureBlock:(ALAssetsLibraryAccessFailureBlock)failureBlock {
@@ -48,6 +42,28 @@
     [assetsLibraryConditionLock lockWhenCondition:ASAssetsLibraryDone];
     [assetsLibraryConditionLock unlock];
     //
+}
+
+-(void)export:(ALAsset*)asset withHandler:(void (^)(NSURL* url, NSError* error))handler
+{
+    ALAssetRepresentation* representation=asset.defaultRepresentation;
+    //
+    AVAssetExportSession *m_session = [AVAssetExportSession exportSessionWithAsset:[AVURLAsset URLAssetWithURL:representation.url options:nil] presetName:AVAssetExportPresetPassthrough];
+    m_session.outputFileType=AVFileTypeQuickTimeMovie;
+    m_session.outputURL=[NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%f.mov",[NSDate timeIntervalSinceReferenceDate]]]];
+    [m_session exportAsynchronouslyWithCompletionHandler:^
+     {
+         if (m_session.status!=AVAssetExportSessionStatusCompleted)
+         {
+             NSError* error=m_session.error;
+             __block m_session=nil;
+             handler(nil,error);
+             return;
+         }
+         NSURL* url=m_session.outputURL;
+         __block m_session=nil;
+         handler(url,nil);
+     }];
 }
 
 @end
