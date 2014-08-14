@@ -8,6 +8,8 @@
 
 #import "ASActor.h"
 
+#import <objc/message.h>
+
 @interface ASActor ()
 
 @property (nonatomic, copy, readwrite) NSString *uuid;
