@@ -13,7 +13,13 @@
 - (instancetype)initWithFile:(NSString *)path;
 
 - (id)objectForKey:(NSString *)key;
+
+- (NSArray *)allKeys;
+
+- (NSArray *)allObjects;
+
 - (void)addObject:(id)object forKey:(NSString *)key;
+
 - (void)removeObjectForKey:(NSString *)key;
 
 @end

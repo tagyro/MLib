@@ -21,7 +21,7 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        _lockQueue = dispatch_queue_create("co.nz.mega", DISPATCH_QUEUE_SERIAL);
+        _lockQueue = dispatch_get_main_queue();
         _data = [NSMutableDictionary new];
     }
     return self;
@@ -29,11 +29,12 @@
 
 - (instancetype)initWithFile:(NSString *)path {
     if (self = [super init]) {
-        _lockQueue = dispatch_queue_create("co.nz.mega", DISPATCH_QUEUE_SERIAL);
+        _lockQueue = dispatch_queue_create([path.lastPathComponent cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
         _filepath = path;
         _data = [NSMutableDictionary dictionaryWithContentsOfURL:[NSURL fileURLWithPath:_filepath]];
         if (!_data) {
             _data = [NSMutableDictionary new];
+            [_data writeToFile:_filepath atomically:YES];
         }
     }
     return self;
@@ -44,6 +45,22 @@
     __block id retVal = nil;
     dispatch_sync(self.lockQueue, ^{
         retVal = [self.data objectForKey:key];
+    });
+    return retVal;
+}
+
+- (NSArray*)allKeys {
+    __block id retVal = nil;
+    dispatch_sync(self.lockQueue, ^{
+        retVal = [self.data allKeys];
+    });
+    return retVal;
+}
+
+- (NSArray *)allObjects {
+    __block id retVal = nil;
+    dispatch_sync(self.lockQueue, ^{
+        retVal = [self.data allValues];
     });
     return retVal;
 }
