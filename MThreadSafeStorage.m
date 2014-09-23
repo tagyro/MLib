@@ -67,7 +67,7 @@
 
 - (void)addObject:(id)object forKey:(NSString *)key
 {
-    dispatch_async(self.lockQueue, ^{
+    dispatch_sync(self.lockQueue, ^{
         if (!object) {
             return ;
         }
@@ -78,7 +78,7 @@
 
 - (void)removeObjectForKey:(NSString *)key
 {
-    dispatch_async(self.lockQueue, ^{
+    dispatch_sync(self.lockQueue, ^{
         [self.data removeObjectForKey:key];
     });
 }
