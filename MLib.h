@@ -9,8 +9,6 @@
 #ifndef ASLib
 #define ASLib
 
-#import "ASActor.h"
-
 #import "MThreadSafeStorage.h"
 
 #import "ALAssetsLibrary+ASAssets.h"
