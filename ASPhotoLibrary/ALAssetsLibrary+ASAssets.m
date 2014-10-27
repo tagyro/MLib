@@ -125,7 +125,11 @@ static NSString *kErrorDomain = @"co.nz.mega";
                     }
                     //
                     BOOL cp = [[NSFileManager defaultManager] moveItemAtURL:url toURL:[NSURL fileURLWithPath:filepath isDirectory:NO] error:nil];
-                    handler([NSURL fileURLWithPath:filepath],nil);
+                    if (cp) {
+                        handler([NSURL fileURLWithPath:filepath],nil);
+                    } else {
+                        handler(nil, [NSError errorWithDomain:kErrorDomain code:-1 userInfo:nil]);
+                    }
                 }];
             }
             return;
