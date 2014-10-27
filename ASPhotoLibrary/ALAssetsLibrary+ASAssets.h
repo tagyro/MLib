@@ -14,6 +14,8 @@
 
 - (void)asassets_enumerateGroupsWithTypes:(ALAssetsGroupType)types usingBlock:(ALAssetsLibraryGroupsEnumerationResultsBlock)enumerationBlock failureBlock:(ALAssetsLibraryAccessFailureBlock)failureBlock;
 
+- (void)lastPhoto:(void (^)(ALAsset *))returnBlock;
+
 -(void)export:(ALAsset*)asset withHandler:(void (^)(NSURL* url, NSError* error))handler;
 
 @end
