@@ -189,7 +189,7 @@ static NSString *kErrorDomain = @"co.nz.mega";
     NSMutableArray *groups = [NSMutableArray array];
     NSMutableArray *assets = [NSMutableArray array];
     //
-    [self enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+    [self enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         if (group!=nil) {
             [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                 if (result!=nil) {
