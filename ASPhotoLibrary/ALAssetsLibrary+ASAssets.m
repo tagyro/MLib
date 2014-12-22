@@ -200,10 +200,14 @@ static NSString *kErrorDomain = @"co.nz.mega";
             }];
             [groups addObject:group];
         } else {
+            //
             [assets sortUsingComparator:^NSComparisonResult(ALAsset *obj1, ALAsset *obj2) {
-                if ([[obj1 valueForProperty:ALAssetPropertyDate] earlierDate:[obj2 valueForProperty:ALAssetPropertyDate]]==[obj1 valueForProperty:ALAssetPropertyDate]) {
+                NSDate *d1 = [obj1 valueForProperty:ALAssetPropertyDate];
+                NSDate *d2 = [obj2 valueForProperty:ALAssetPropertyDate];
+                //
+                if ([d1 earlierDate:d2]==d1) {
                     return NSOrderedDescending;
-                } else if ([[obj1 valueForProperty:ALAssetPropertyDate] earlierDate:[obj2 valueForProperty:ALAssetPropertyDate]]==[obj2 valueForProperty:ALAssetPropertyDate]) {
+                } else if ([d1 earlierDate:d2]==d2) {
                     return NSOrderedAscending;
                 }
                 return NSOrderedSame;
